@@ -49,4 +49,7 @@ dependencies {
 
     // Java language implementation
     implementation "androidx.activity:activity:$activity_version"
+
+    // add BasicFunctionSDK.aar
+    implementation files('libs/BasicFunctionSDK_1.2.1.aar')
 }
