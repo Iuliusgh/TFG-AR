@@ -18,9 +18,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         checkPermissions();
+        setContentView(R.layout.activity_main);
     }
     private void startCamera(){
         DisplayManager displayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
