@@ -8,10 +8,12 @@ import android.view.Display;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.core.ExposureState;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private CameraPresentation mPresentation;
     private static final int REQUEST_CODE = 1;
     private Button brilloBoton;
+    private SeekBar exposureSeekBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +35,15 @@ public class MainActivity extends AppCompatActivity {
                 brillo();
             }
         });
-
+        exposureSeekBar=findViewById(R.id.exposureSeekBar1);
+        //initSeekBar(exposureSeekBar);
+    }
+    private void initSeekBar(SeekBar seekBar){
+       ExposureState exposureState = CameraPresentation.getExposureCompensationRange();
+       seekBar.setEnabled(exposureState.isExposureCompensationSupported());
+       seekBar.setMax(exposureState.getExposureCompensationRange().getUpper());
+       seekBar.setMin(exposureState.getExposureCompensationRange().getLower());
+       seekBar.setProgress(exposureState.getExposureCompensationIndex());
     }
     private void brillo(){
         com.epson.moverio.hardware.display.DisplayManager mDisplayManager = new com.epson.moverio.hardware.display.DisplayManager(this);

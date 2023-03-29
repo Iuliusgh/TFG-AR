@@ -9,23 +9,36 @@
         android:id="@+id/brillo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Brillo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Brillo" />
 
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_margin_left="50dp"
-        android:layout_margin_right="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/brillo"
         app:layout_constraintVertical_bias="0.08" />
+
+    <SeekBar
+        android:id="@+id/exposureSeekBar1"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/brillo"
+        app:layout_constraintVertical_bias="0.306" />
 
     <TextView
         android:id="@+id/textView"
@@ -46,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="252dp"
         android:text="Opciones"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/brillo"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,11 @@
 package com.example.tfg;
 
+import androidx.camera.camera2.internal.ExposureControl;
+import androidx.camera.core.Camera;
+import androidx.camera.core.CameraControl;
+import androidx.camera.core.CameraInfo;
 import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ExposureState;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
@@ -24,6 +29,9 @@ public class CameraPresentation extends Presentation implements LifecycleOwner {
     private PreviewView mPreviewView;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private LifecycleRegistry mLifecycleRegistry;
+
+    private CameraControl cameraControl;
+    private static Camera camera;
     public CameraPresentation(Context context, Display display) {
         super(context, display);
         mLifecycleRegistry = new LifecycleRegistry(this);
@@ -37,7 +45,6 @@ public class CameraPresentation extends Presentation implements LifecycleOwner {
         mPreviewView = findViewById(R.id.displayPreviewView);
         mLifecycleRegistry.setCurrentState(Lifecycle.State.STARTED);
     }
-
     @Override
     protected void onStop() {
         super.onStop();
@@ -54,6 +61,7 @@ public class CameraPresentation extends Presentation implements LifecycleOwner {
             try {
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
                 bindPreview(cameraProvider);
+
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -63,14 +71,13 @@ public class CameraPresentation extends Presentation implements LifecycleOwner {
         Preview preview = new Preview.Builder()
                 .setTargetResolution(getTargetResolution()).build();
 
-
         CameraSelector cameraSelector = new CameraSelector.Builder()
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                 .build();
 
         preview.setSurfaceProvider(mPreviewView.getSurfaceProvider());
 
-        cameraProvider.bindToLifecycle(this, cameraSelector, preview);
+        camera=cameraProvider.bindToLifecycle(this, cameraSelector, preview);
     }
     private Size getTargetResolution() {
         Display display = getDisplay();
@@ -79,6 +86,12 @@ public class CameraPresentation extends Presentation implements LifecycleOwner {
         int width = size.x;
         int height = size.y;
         return new Size(width, height);
+    }
+
+    public static ExposureState getExposureCompensationRange(){
+        CameraInfo cameraInfo = camera.getCameraInfo();
+        ExposureState exposureState = cameraInfo.getExposureState();
+        return exposureState;
     }
 }
 
