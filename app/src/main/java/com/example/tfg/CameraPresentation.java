@@ -78,6 +78,7 @@ public class CameraPresentation extends Presentation implements LifecycleOwner {
         preview.setSurfaceProvider(mPreviewView.getSurfaceProvider());
 
         camera=cameraProvider.bindToLifecycle(this, cameraSelector, preview);
+        MainActivity.initUI();
     }
     private Size getTargetResolution() {
         Display display = getDisplay();

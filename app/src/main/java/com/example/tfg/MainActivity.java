@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private CameraPresentation mPresentation;
     private static final int REQUEST_CODE = 1;
     private Button brilloBoton;
-    private SeekBar exposureSeekBar;
+    private static SeekBar exposureSeekBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +36,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         exposureSeekBar=findViewById(R.id.exposureSeekBar1);
-        //initSeekBar(exposureSeekBar);
+        exposureSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
-    private void initSeekBar(SeekBar seekBar){
+    public static void initUI(){
+        initSeekBar(exposureSeekBar);
+    }
+    private static void initSeekBar(SeekBar seekBar){
        ExposureState exposureState = CameraPresentation.getExposureCompensationRange();
        seekBar.setEnabled(exposureState.isExposureCompensationSupported());
        seekBar.setMax(exposureState.getExposureCompensationRange().getUpper());
