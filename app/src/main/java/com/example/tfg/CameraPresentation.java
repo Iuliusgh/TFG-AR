@@ -1,11 +1,6 @@
 package com.example.tfg;
 
 import androidx.annotation.NonNull;
-import androidx.camera.camera2.internal.ExposureControl;
-import androidx.camera.camera2.interop.Camera2CameraControl;
-import androidx.camera.camera2.interop.Camera2Interop;
-import androidx.camera.camera2.interop.CaptureRequestOptions;
-import androidx.camera.camera2.interop.ExperimentalCamera2Interop;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraControl;
 import androidx.camera.core.CameraInfo;
@@ -32,6 +27,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.hardware.camera2.CaptureRequest;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Size;
 import android.view.Display;
 import android.view.SurfaceHolder;
@@ -41,12 +37,16 @@ import android.view.ViewGroup;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.nio.ByteBuffer;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 
 public class CameraPresentation extends Presentation implements LifecycleOwner, ImageAnalysis.Analyzer {
-
+    String TAG="CameraPresentation: ";
     private static PreviewView mPreviewView;
     private static SurfaceView mSurfaceView;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
@@ -67,6 +67,11 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
         mSurfaceView = findViewById(R.id.surfaceView);
         mPreviewView.setImplementationMode(PreviewView.ImplementationMode.COMPATIBLE);
         mLifecycleRegistry.setCurrentState(Lifecycle.State.STARTED);
+        if (!OpenCVLoader.initDebug()) {
+            Log.e(TAG, "OpenCV library not loaded!");
+        } else {
+            Log.d(TAG, "OpenCV library loaded successfully.");
+        }
     }
     @Override
     protected void onStop() {
@@ -136,7 +141,7 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
         Bitmap bitmap = mPreviewView.getBitmap();
         if (mSurfaceView.getHolder().getSurface().isValid()){
             Canvas canvas = mSurfaceView.getHolder().lockCanvas();
-            canvas.drawBitmap(toGrayscale(bitmap), 0f, 0f, null);
+            canvas.drawBitmap(edgeDetection(bitmap), 0f, 0f, null);
             mSurfaceView.getHolder().unlockCanvasAndPost(canvas);
         }
         image.close();
@@ -151,6 +156,17 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
 
         Canvas canvas = new Canvas(bitmap);
         canvas.drawBitmap(bitmap, 0f, 0f, grayscalePaint);
+
+        return bitmap;
+    }
+    private Bitmap edgeDetection(Bitmap bitmap) {
+
+        // Apply the edge detection filter
+        Mat mat = new Mat();
+        Utils.bitmapToMat(bitmap, mat);
+        Mat edges = new Mat();
+        Imgproc.Canny(mat, edges, 100/3, 100);
+        Utils.matToBitmap(edges, bitmap);
 
         return bitmap;
     }

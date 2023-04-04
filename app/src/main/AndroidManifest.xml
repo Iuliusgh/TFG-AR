@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tfg"
         tools:targetApi="31">
+        <meta-data android:name="org.opencv.engine" android:value="opencv_java4" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -65,6 +65,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Escala de grises" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/edgesSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Resalte de bordes" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

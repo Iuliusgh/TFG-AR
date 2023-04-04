@@ -1,0 +1,2 @@
+ninja: Entering directory `C:\Users\Iulius\Documents\GitHub\TFG-AR\OpenCV2\.cxx\Debug\163l671c\x86'
+ninja: no work to do.

@@ -1,0 +1,156 @@
+[
+  {
+    "level_": 0,
+    "message_": "Start JSON generation. Platform version: 28 min SDK version: x86",
+    "file_": "C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\libcxx_helper\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -902261737
+  },
+  {
+    "level_": 0,
+    "message_": "rebuilding JSON C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\.cxx\\RelWithDebInfo\\4o3h4w46\\x86\\android_gradle_build.json due to:",
+    "file_": "C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\libcxx_helper\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 612248297
+  },
+  {
+    "level_": 0,
+    "message_": "- no fingerprint file, will remove stale configuration folder",
+    "file_": "C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\libcxx_helper\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1676955013
+  },
+  {
+    "level_": 0,
+    "message_": "removing stale contents from \u0027C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\.cxx\\RelWithDebInfo\\4o3h4w46\\x86\u0027",
+    "file_": "C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\libcxx_helper\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 2073031303
+  },
+  {
+    "level_": 0,
+    "message_": "created folder \u0027C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\.cxx\\RelWithDebInfo\\4o3h4w46\\x86\u0027",
+    "file_": "C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\libcxx_helper\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1847932155
+  },
+  {
+    "level_": 0,
+    "message_": "executing cmake @echo off\n\"C:\\\\Users\\\\Iulius\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\cmake\\\\3.22.1\\\\bin\\\\cmake.exe\" ^\n  \"-HC:\\\\Users\\\\Iulius\\\\Documents\\\\GitHub\\\\TFG-AR\\\\OpenCV2\\\\libcxx_helper\" ^\n  \"-DCMAKE_SYSTEM_NAME\u003dAndroid\" ^\n  \"-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\" ^\n  \"-DCMAKE_SYSTEM_VERSION\u003d28\" ^\n  \"-DANDROID_PLATFORM\u003dandroid-28\" ^\n  \"-DANDROID_ABI\u003dx86\" ^\n  \"-DCMAKE_ANDROID_ARCH_ABI\u003dx86\" ^\n  \"-DANDROID_NDK\u003dC:\\\\Users\\\\Iulius\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\" ^\n  \"-DCMAKE_ANDROID_NDK\u003dC:\\\\Users\\\\Iulius\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\" ^\n  \"-DCMAKE_TOOLCHAIN_FILE\u003dC:\\\\Users\\\\Iulius\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\\\\build\\\\cmake\\\\android.toolchain.cmake\" ^\n  \"-DCMAKE_MAKE_PROGRAM\u003dC:\\\\Users\\\\Iulius\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\cmake\\\\3.22.1\\\\bin\\\\ninja.exe\" ^\n  \"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dC:\\\\Users\\\\Iulius\\\\Documents\\\\GitHub\\\\TFG-AR\\\\OpenCV2\\\\build\\\\intermediates\\\\cxx\\\\RelWithDebInfo\\\\4o3h4w46\\\\obj\\\\x86\" ^\n  \"-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003dC:\\\\Users\\\\Iulius\\\\Documents\\\\GitHub\\\\TFG-AR\\\\OpenCV2\\\\build\\\\intermediates\\\\cxx\\\\RelWithDebInfo\\\\4o3h4w46\\\\obj\\\\x86\" ^\n  \"-DCMAKE_BUILD_TYPE\u003dRelWithDebInfo\" ^\n  \"-BC:\\\\Users\\\\Iulius\\\\Documents\\\\GitHub\\\\TFG-AR\\\\OpenCV2\\\\.cxx\\\\RelWithDebInfo\\\\4o3h4w46\\\\x86\" ^\n  -GNinja ^\n  \"-DANDROID_STL\u003dc++_shared\"\n",
+    "file_": "C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\libcxx_helper\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1423990272
+  },
+  {
+    "level_": 0,
+    "message_": "@echo off\n\"C:\\\\Users\\\\Iulius\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\cmake\\\\3.22.1\\\\bin\\\\cmake.exe\" ^\n  \"-HC:\\\\Users\\\\Iulius\\\\Documents\\\\GitHub\\\\TFG-AR\\\\OpenCV2\\\\libcxx_helper\" ^\n  \"-DCMAKE_SYSTEM_NAME\u003dAndroid\" ^\n  \"-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\" ^\n  \"-DCMAKE_SYSTEM_VERSION\u003d28\" ^\n  \"-DANDROID_PLATFORM\u003dandroid-28\" ^\n  \"-DANDROID_ABI\u003dx86\" ^\n  \"-DCMAKE_ANDROID_ARCH_ABI\u003dx86\" ^\n  \"-DANDROID_NDK\u003dC:\\\\Users\\\\Iulius\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\" ^\n  \"-DCMAKE_ANDROID_NDK\u003dC:\\\\Users\\\\Iulius\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\" ^\n  \"-DCMAKE_TOOLCHAIN_FILE\u003dC:\\\\Users\\\\Iulius\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\ndk\\\\23.1.7779620\\\\build\\\\cmake\\\\android.toolchain.cmake\" ^\n  \"-DCMAKE_MAKE_PROGRAM\u003dC:\\\\Users\\\\Iulius\\\\AppData\\\\Local\\\\Android\\\\Sdk\\\\cmake\\\\3.22.1\\\\bin\\\\ninja.exe\" ^\n  \"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dC:\\\\Users\\\\Iulius\\\\Documents\\\\GitHub\\\\TFG-AR\\\\OpenCV2\\\\build\\\\intermediates\\\\cxx\\\\RelWithDebInfo\\\\4o3h4w46\\\\obj\\\\x86\" ^\n  \"-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003dC:\\\\Users\\\\Iulius\\\\Documents\\\\GitHub\\\\TFG-AR\\\\OpenCV2\\\\build\\\\intermediates\\\\cxx\\\\RelWithDebInfo\\\\4o3h4w46\\\\obj\\\\x86\" ^\n  \"-DCMAKE_BUILD_TYPE\u003dRelWithDebInfo\" ^\n  \"-BC:\\\\Users\\\\Iulius\\\\Documents\\\\GitHub\\\\TFG-AR\\\\OpenCV2\\\\.cxx\\\\RelWithDebInfo\\\\4o3h4w46\\\\x86\" ^\n  -GNinja ^\n  \"-DANDROID_STL\u003dc++_shared\"\n",
+    "file_": "C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\libcxx_helper\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 795206497
+  },
+  {
+    "level_": 0,
+    "message_": "Exiting generation of C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\.cxx\\RelWithDebInfo\\4o3h4w46\\x86\\compile_commands.json.bin normally",
+    "file_": "C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\libcxx_helper\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 416444209
+  },
+  {
+    "level_": 0,
+    "message_": "done executing cmake",
+    "file_": "C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\libcxx_helper\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 208000763
+  },
+  {
+    "level_": 0,
+    "message_": "hard linked C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\.cxx\\RelWithDebInfo\\4o3h4w46\\x86\\compile_commands.json to C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\.cxx\\tools\\release\\x86\\compile_commands.json",
+    "file_": "C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\libcxx_helper\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1804024276
+  },
+  {
+    "level_": 0,
+    "message_": "JSON generation completed without problems",
+    "file_": "C:\\Users\\Iulius\\Documents\\GitHub\\TFG-AR\\OpenCV2\\libcxx_helper\\CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 2146073847
+  }
+]
