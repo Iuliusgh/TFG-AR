@@ -8,38 +8,41 @@ import android.view.Display;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.camera.core.ExposureState;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.epson.moverio.util.PermissionGrantResultCallback;
 
 import java.io.IOException;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private CameraPresentation mPresentation;
     private static final int REQUEST_CODE = 1;
-    private Button brilloBoton;
+
     private static SeekBar exposureSeekBar;
+    private static SeekBar zoomSeekbar;
+    private static SwitchCompat grayscaleSwitch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         checkPermissions();
         setContentView(R.layout.activity_main);
-        brilloBoton = findViewById(R.id.brillo);
-        brilloBoton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                brillo();
-            }
-        });
-        exposureSeekBar=findViewById(R.id.exposureSeekBar1);
+        exposureSeekBar=findViewById(R.id.exposureSeekBar);
         exposureSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
+                TextView textView = findViewById(R.id.exposureText);
+                textView.setText("Exposición: " + exposureSeekBar.getProgress());
             }
 
             @Override
@@ -49,34 +52,58 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(MainActivity.this, "New camera exposure: " + CameraPresentation.setExposure(exposureSeekBar.getProgress()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        zoomSeekbar=findViewById(R.id.zoomSeekBar);
+        zoomSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                TextView textView = findViewById(R.id.zoomText);
+                textView.setText("Zoom: " + zoomSeekbar.getProgress());
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                CameraPresentation.setZoom((float) zoomSeekbar.getProgress()/100);
+                Toast.makeText(MainActivity.this, "New zoom: " + zoomSeekbar.getProgress(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        grayscaleSwitch = findViewById(R.id.grayscaleSwitch);
+        grayscaleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                CameraPresentation.setSurfaceViewVisible(isChecked);
             }
         });
     }
     public static void initUI(){
         initSeekBar(exposureSeekBar);
-    }
-    private static void initSeekBar(SeekBar seekBar){
-       ExposureState exposureState = CameraPresentation.getExposureCompensationRange();
-       seekBar.setEnabled(exposureState.isExposureCompensationSupported());
-       seekBar.setMax(exposureState.getExposureCompensationRange().getUpper());
-       seekBar.setMin(exposureState.getExposureCompensationRange().getLower());
-       seekBar.setProgress(exposureState.getExposureCompensationIndex());
-    }
-    private void brillo(){
-        com.epson.moverio.hardware.display.DisplayManager mDisplayManager = new com.epson.moverio.hardware.display.DisplayManager(this);
-        try {
-            mDisplayManager.open();
-            Toast.makeText(this, "Brillo cambiado", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mDisplayManager.setBrightnessMode(com.epson.moverio.hardware.display.DisplayManager.BRIGHTNESS_MODE_MANUAL);
-        mDisplayManager.setBrightness(1);
-        mDisplayManager.close();
-        mDisplayManager.release();
 
     }
+    private static void initSeekBar(SeekBar seekBar){
+        if (seekBar==exposureSeekBar) {
+            ExposureState exposureState = CameraPresentation.getExposureCompensationRange();
+            seekBar.setEnabled(exposureState.isExposureCompensationSupported());
+            seekBar.setMax(exposureState.getExposureCompensationRange().getUpper());
+            seekBar.setMin(exposureState.getExposureCompensationRange().getLower());
+            seekBar.setProgress(exposureState.getExposureCompensationIndex());
+        } else if (seekBar==zoomSeekbar) {
+            seekBar.setEnabled(true);
+            seekBar.setMax(100);
+            seekBar.setMin(0);
+            seekBar.setProgress(0);
+        }
+
+
+    }
+
     private void startCamera(){
         DisplayManager displayManager =(DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
         Display[] displays = displayManager.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION);
@@ -110,4 +137,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }
