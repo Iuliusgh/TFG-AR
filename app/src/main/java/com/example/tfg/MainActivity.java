@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity{
     private static SeekBar exposureSeekBar;
     private static SeekBar zoomSeekbar;
     private static SwitchCompat grayscaleSwitch;
+    private static SwitchCompat edgesSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,14 @@ public class MainActivity extends AppCompatActivity{
         grayscaleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                CameraPresentation.setSurfaceViewVisible(isChecked);
+                CameraPresentation.setGrayScaleMode(isChecked);
+            }
+        });
+        edgesSwitch = findViewById(R.id.edgesSwitch);
+        edgesSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                CameraPresentation.setEdgesMode(isChecked);
             }
         });
     }
@@ -89,19 +97,12 @@ public class MainActivity extends AppCompatActivity{
     }
     private static void initSeekBar(SeekBar seekBar){
         if (seekBar==exposureSeekBar) {
-            ExposureState exposureState = CameraPresentation.getExposureCompensationRange();
+            ExposureState exposureState = CameraPresentation.getCameraInfo().getExposureState();
             seekBar.setEnabled(exposureState.isExposureCompensationSupported());
             seekBar.setMax(exposureState.getExposureCompensationRange().getUpper());
             seekBar.setMin(exposureState.getExposureCompensationRange().getLower());
             seekBar.setProgress(exposureState.getExposureCompensationIndex());
-        } else if (seekBar==zoomSeekbar) {
-            seekBar.setEnabled(true);
-            seekBar.setMax(100);
-            seekBar.setMin(0);
-            seekBar.setProgress(0);
         }
-
-
     }
 
     private void startCamera(){

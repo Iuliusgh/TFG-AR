@@ -52,6 +52,12 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private LifecycleRegistry mLifecycleRegistry;
 
+
+
+    private static boolean grayScaleMode= false;
+    private static boolean edgesMode = false;
+    private static boolean normalMode;
+
     private static Camera camera;
     public CameraPresentation(Context context, Display display) {
         super(context, display);
@@ -123,10 +129,8 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
         return new Size(width, height);
     }
 
-    public static ExposureState getExposureCompensationRange(){
-        CameraInfo cameraInfo = camera.getCameraInfo();
-        ExposureState exposureState = cameraInfo.getExposureState();
-        return exposureState;
+    public static CameraInfo getCameraInfo(){
+        return camera.getCameraInfo();
     }
     public static int setExposure(int exposureValue){
         camera.getCameraControl().setExposureCompensationIndex(exposureValue);
@@ -139,36 +143,53 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
     @Override
     public void analyze(@NonNull ImageProxy image) {
         Bitmap bitmap = mPreviewView.getBitmap();
-        if (mSurfaceView.getHolder().getSurface().isValid()){
-            Canvas canvas = mSurfaceView.getHolder().lockCanvas();
-            canvas.drawBitmap(edgeDetection(bitmap), 0f, 0f, null);
-            mSurfaceView.getHolder().unlockCanvasAndPost(canvas);
+        if (edgesMode){
+            if (!isSurfaceViewVisible())setSurfaceViewVisible(true);
+            if (mSurfaceView.getHolder().getSurface().isValid()){
+                Canvas canvas = mSurfaceView.getHolder().lockCanvas();
+                canvas.drawBitmap(edgeDetection(bitmap), 0f, 0f, null);
+                mSurfaceView.getHolder().unlockCanvasAndPost(canvas);
+            }
         }
+        if (grayScaleMode){
+            if (!isSurfaceViewVisible())setSurfaceViewVisible(true);
+            if (mSurfaceView.getHolder().getSurface().isValid()){
+                Canvas canvas = mSurfaceView.getHolder().lockCanvas();
+                canvas.drawBitmap(toGrayscale(bitmap), 0f, 0f, null);
+                mSurfaceView.getHolder().unlockCanvasAndPost(canvas);
+            }
+        }
+        if(checkNormalMode()){
+            if (isSurfaceViewVisible())setSurfaceViewVisible(false);
+        };
         image.close();
     }
 
     private Bitmap toGrayscale(Bitmap bitmap) {
-
-        Paint grayscalePaint = new Paint();
-        ColorMatrix cm = new ColorMatrix();
-        cm.setSaturation(0);
-        grayscalePaint.setColorFilter(new ColorMatrixColorFilter(cm));
-
-        Canvas canvas = new Canvas(bitmap);
-        canvas.drawBitmap(bitmap, 0f, 0f, grayscalePaint);
-
+        Mat mat = new Mat();
+        Mat gray = new Mat();
+        Utils.bitmapToMat(bitmap, mat);
+        Imgproc.cvtColor(mat,gray,Imgproc.COLOR_BGR2GRAY);
+        Utils.matToBitmap(gray, bitmap);
         return bitmap;
     }
     private Bitmap edgeDetection(Bitmap bitmap) {
-
-        // Apply the edge detection filter
         Mat mat = new Mat();
-        Utils.bitmapToMat(bitmap, mat);
+        Mat blur = new Mat();
         Mat edges = new Mat();
-        Imgproc.Canny(mat, edges, 100/3, 100);
+        org.opencv.core.Size kernel = new org.opencv.core.Size(7.0,7.0);
+        Utils.bitmapToMat(bitmap, mat);
+        Imgproc.cvtColor(mat,mat,Imgproc.COLOR_BGR2GRAY);
+        Imgproc.GaussianBlur(mat,blur,kernel,0);
+        Imgproc.adaptiveThreshold(blur,edges,255,Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C,Imgproc.THRESH_BINARY,21,10);
+        Double maxThreshold=255.0;
+        Imgproc.Canny(edges, edges, maxThreshold/3, maxThreshold);
         Utils.matToBitmap(edges, bitmap);
-
         return bitmap;
+    }
+    private boolean isSurfaceViewVisible(){
+        if(mSurfaceView.getVisibility()==View.VISIBLE)return true;
+        else return false;
     }
     public static void setSurfaceViewVisible(boolean b) {
         if (b) {
@@ -178,6 +199,17 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
             mSurfaceView.setVisibility(View.GONE);
             mPreviewView.setVisibility(View.VISIBLE);
         }
+    }
+    public static void setGrayScaleMode(boolean grayScaleMode) {
+        CameraPresentation.grayScaleMode = grayScaleMode;
+    }
+
+    public static void setEdgesMode(boolean edgesMode) {
+        CameraPresentation.edgesMode = edgesMode;
+    }
+    private boolean checkNormalMode(){
+        normalMode=!(grayScaleMode || edgesMode);
+        return normalMode;
     }
 }
 
