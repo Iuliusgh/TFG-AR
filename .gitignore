@@ -13,4 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
-/OpenCV2/build
+/OpenCV2/build/*
