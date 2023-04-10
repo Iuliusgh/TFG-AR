@@ -39,7 +39,10 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.concurrent.ExecutionException;
@@ -57,6 +60,9 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
     private static boolean grayScaleMode= false;
     private static boolean edgesMode = false;
     private static boolean normalMode;
+    private static float contrastValue = 1;
+    private static int brightnessValue = 0;
+    private static boolean CBMode=false;
 
     private static Camera camera;
     public CameraPresentation(Context context, Display display) {
@@ -64,6 +70,8 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
         mLifecycleRegistry = new LifecycleRegistry(this);
         mLifecycleRegistry.setCurrentState(Lifecycle.State.CREATED);
     }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,27 +150,28 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
 
     @Override
     public void analyze(@NonNull ImageProxy image) {
-        Bitmap bitmap = mPreviewView.getBitmap();
-        if (edgesMode){
-            if (!isSurfaceViewVisible())setSurfaceViewVisible(true);
-            if (mSurfaceView.getHolder().getSurface().isValid()){
-                Canvas canvas = mSurfaceView.getHolder().lockCanvas();
-                canvas.drawBitmap(edgeDetection(bitmap), 0f, 0f, null);
-                mSurfaceView.getHolder().unlockCanvasAndPost(canvas);
-            }
-        }
-        if (grayScaleMode){
-            if (!isSurfaceViewVisible())setSurfaceViewVisible(true);
-            if (mSurfaceView.getHolder().getSurface().isValid()){
-                Canvas canvas = mSurfaceView.getHolder().lockCanvas();
-                canvas.drawBitmap(toGrayscale(bitmap), 0f, 0f, null);
-                mSurfaceView.getHolder().unlockCanvasAndPost(canvas);
-            }
-        }
+        image.close();
         if(checkNormalMode()){
             if (isSurfaceViewVisible())setSurfaceViewVisible(false);
-        };
-        image.close();
+        }
+        else {
+            if (!isSurfaceViewVisible()) setSurfaceViewVisible(true);
+            Bitmap bitmap = mPreviewView.getBitmap();
+            if (mSurfaceView.getHolder().getSurface().isValid()) {
+                Canvas canvas = mSurfaceView.getHolder().lockCanvas();
+                if (edgesMode) {
+                    canvas.drawBitmap(edgeDetection(bitmap), 0f, 0f, null);
+                }
+                if (grayScaleMode) {
+                    canvas.drawBitmap(toGrayscale(bitmap), 0f, 0f, null);
+                }
+                if(CBMode){
+                    canvas.drawBitmap(contrastAndBrightness(bitmap),0f,0f,null);
+                }
+                mSurfaceView.getHolder().unlockCanvasAndPost(canvas);
+            }
+        }
+
     }
 
     private Bitmap toGrayscale(Bitmap bitmap) {
@@ -174,22 +183,54 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
         return bitmap;
     }
     private Bitmap edgeDetection(Bitmap bitmap) {
+        //Declaration of all the Mats needed
         Mat mat = new Mat();
         Mat blur = new Mat();
         Mat edges = new Mat();
-        org.opencv.core.Size kernel = new org.opencv.core.Size(7.0,7.0);
+        //Transformation of bitmap input into Mat
         Utils.bitmapToMat(bitmap, mat);
+        //Conversion to grayscale
         Imgproc.cvtColor(mat,mat,Imgproc.COLOR_BGR2GRAY);
+        //Image blur
+        org.opencv.core.Size kernel = new org.opencv.core.Size(7.0,7.0);
         Imgproc.GaussianBlur(mat,blur,kernel,0);
+        //Use of adaptiveThreshold to enhance the edge detection
         Imgproc.adaptiveThreshold(blur,edges,255,Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C,Imgproc.THRESH_BINARY,21,10);
-        Double maxThreshold=255.0;
+        //Edge detection using Canny's algorithm
+        double maxThreshold=255.0;
         Imgproc.Canny(edges, edges, maxThreshold/3, maxThreshold);
+        //Transformation back to bitmap
         Utils.matToBitmap(edges, bitmap);
         return bitmap;
     }
+    private Bitmap contrastAndBrightness(Bitmap bitmap){
+        Mat src = new Mat();
+        Mat dst = new Mat();
+        Utils.bitmapToMat(bitmap,src);
+        src.convertTo(src,-1,1.0,brightnessValue);
+        Core.LUT(src,contrastLookupTable(contrastValue),dst);
+        Utils.matToBitmap(dst,bitmap);
+        return bitmap;
+    }
+    Mat contrastLookupTable(float contrast) {
+        Mat lut = new Mat(1, 256, CvType.CV_8U);
+        byte[] lutData =  new byte[(int) (lut.total()*lut.channels())];
+
+        for (int i=0 ; i < lut.cols(); i++) {
+            lutData[i] = saturate(contrast*(i-255)+255);
+        }
+        lut.put(0,0,lutData);
+        return lut;
+    }
+    //Cogido de https://github.com/opencv/opencv/blob/3.4/samples/java/tutorial_code/ImgProc/changing_contrast_brightness_image/ChangingContrastBrightnessImageDemo.java
+    private byte saturate(float val) {
+        int iVal = (int) Math.round(val);
+        if (iVal>255) iVal=255;
+        else if (iVal<0) iVal=0;
+        return (byte) iVal;
+    }
     private boolean isSurfaceViewVisible(){
-        if(mSurfaceView.getVisibility()==View.VISIBLE)return true;
-        else return false;
+        return mSurfaceView.getVisibility() == View.VISIBLE;
     }
     public static void setSurfaceViewVisible(boolean b) {
         if (b) {
@@ -203,13 +244,24 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
     public static void setGrayScaleMode(boolean grayScaleMode) {
         CameraPresentation.grayScaleMode = grayScaleMode;
     }
-
     public static void setEdgesMode(boolean edgesMode) {
         CameraPresentation.edgesMode = edgesMode;
     }
     private boolean checkNormalMode(){
-        normalMode=!(grayScaleMode || edgesMode);
+        normalMode=!(grayScaleMode || edgesMode || CBMode);
         return normalMode;
+    }
+
+    public static void setContrast(float contrast) {
+        contrastValue=contrast;
+    }
+
+    public static void setBrightness(int brightness) {
+        brightnessValue=brightness;
+    }
+
+    public static void setCBMode(boolean CBMode) {
+        CameraPresentation.CBMode=CBMode;
     }
 }
 

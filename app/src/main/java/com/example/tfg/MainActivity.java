@@ -25,13 +25,14 @@ import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity{
-    private CameraPresentation mPresentation;
     private static final int REQUEST_CODE = 1;
 
     private static SeekBar exposureSeekBar;
     private static SeekBar zoomSeekbar;
-    private static SwitchCompat grayscaleSwitch;
-    private static SwitchCompat edgesSwitch;
+
+    private static SeekBar contrastSeekbar;
+
+    private static SeekBar brightnessSeekbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,23 +77,74 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
-        grayscaleSwitch = findViewById(R.id.grayscaleSwitch);
+        SwitchCompat grayscaleSwitch = findViewById(R.id.grayscaleSwitch);
         grayscaleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 CameraPresentation.setGrayScaleMode(isChecked);
             }
         });
-        edgesSwitch = findViewById(R.id.edgesSwitch);
+        SwitchCompat edgesSwitch = findViewById(R.id.edgesSwitch);
         edgesSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 CameraPresentation.setEdgesMode(isChecked);
             }
         });
+        SwitchCompat CBSwitch = findViewById(R.id.CBSwitch);
+        CBSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                contrastSeekbar.setEnabled(isChecked);
+                brightnessSeekbar.setEnabled(isChecked);
+                CameraPresentation.setCBMode(isChecked);
+            }
+        });
+        contrastSeekbar=findViewById(R.id.contrastSeekbar);
+        contrastSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                TextView textView = findViewById(R.id.contrastText);
+                textView.setText("Contraste: " + contrastSeekbar.getProgress());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                CameraPresentation.setContrast( ((float) contrastSeekbar.getProgress())/100);
+                Toast.makeText(MainActivity.this, "New contrast: " + contrastSeekbar.getProgress(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        brightnessSeekbar=findViewById(R.id.brightnessSeekbar);
+        brightnessSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                TextView textView = findViewById(R.id.brightnessText);
+                textView.setText("Brillo: " + brightnessSeekbar.getProgress());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                CameraPresentation.setBrightness(brightnessSeekbar.getProgress());
+                Toast.makeText(MainActivity.this, "New brightness: " + brightnessSeekbar.getProgress(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
     public static void initUI(){
         initSeekBar(exposureSeekBar);
+        initSeekBar(contrastSeekbar);
+        initSeekBar(brightnessSeekbar);
 
     }
     private static void initSeekBar(SeekBar seekBar){
@@ -103,6 +155,18 @@ public class MainActivity extends AppCompatActivity{
             seekBar.setMin(exposureState.getExposureCompensationRange().getLower());
             seekBar.setProgress(exposureState.getExposureCompensationIndex());
         }
+        if (seekBar==contrastSeekbar){
+            seekBar.setEnabled(false);
+            seekBar.setMax(300);
+            seekBar.setMin(0);
+            seekBar.setProgress(100);
+        }
+        if (seekBar==brightnessSeekbar){
+            seekBar.setEnabled(false);
+            seekBar.setMax(255);
+            seekBar.setMin(0);
+            seekBar.setProgress(0);
+        }
     }
 
     private void startCamera(){
@@ -110,7 +174,7 @@ public class MainActivity extends AppCompatActivity{
         Display[] displays = displayManager.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION);
         if (displays.length > 0) {
             Display display = displays[0];
-            mPresentation = new CameraPresentation(this, display);
+            CameraPresentation mPresentation = new CameraPresentation(this, display);
             mPresentation.show();
             mPresentation.startCameraPreview();
         }
