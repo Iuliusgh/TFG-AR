@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/whitebg_v"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,11 +22,12 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="413dp"
+        android:layout_height="597dp"
+        android:layout_marginTop="12dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Opciones">
 
@@ -33,17 +35,17 @@
             android:id="@+id/zoomText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:layout_gravity="center"
-            android:textSize="20sp"
             android:text="Zoom: 0"
-            />
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <SeekBar
             android:id="@+id/zoomSeekBar"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="288dp"
+            android:layout_height="36dp"
             android:layout_gravity="center"
             />
 
@@ -51,71 +53,76 @@
             android:id="@+id/exposureText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:layout_gravity="center"
-            android:textSize="20sp"/>
+            android:text="Exposición: 0"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <SeekBar
             android:id="@+id/exposureSeekBar"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-           android:layout_gravity="center" />
+            android:layout_width="288dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/grayscaleSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="198dp"
+            android:layout_height="69dp"
             android:layout_gravity="center"
-            android:text="Escala de grises" />
+            android:text="Escala de grises"
+            android:textSize="16sp"/>
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/edgesSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="198dp"
+            android:layout_height="69dp"
             android:layout_gravity="center"
-            android:text="Resalte de bordes" />
+            android:text="Resalte de bordes"
+            android:textSize="16sp"/>
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/CBSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="198dp"
+            android:layout_height="69dp"
             android:layout_gravity="center"
-            android:text="Contraste y Brillo" />
+            android:text="Contraste y Brillo"
+            android:textSize="16sp"/>
+
         <TextView
             android:id="@+id/contrastText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:layout_gravity="center"
-            android:textSize="20sp"
             android:text="Contraste: 0"
-            />
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <SeekBar
             android:id="@+id/contrastSeekbar"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+            android:layout_width="288dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center" />
+
         <TextView
             android:id="@+id/brightnessText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:layout_gravity="center"
-            android:textSize="20sp"
             android:text="Brillo: 0"
-            />
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <SeekBar
             android:id="@+id/brightnessSeekbar"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+            android:layout_width="288dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center" />
 
 
     </LinearLayout>
