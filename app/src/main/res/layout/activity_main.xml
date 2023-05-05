@@ -2,8 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/whitebg_v"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,10 +9,12 @@
         android:id="@+id/Opciones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Opciones"
-        android:textColor="@color/black"
-        android:textSize="40sp"
+        android:layout_marginTop="45dp"
         android:gravity="center"
+        android:text="Opciones"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,118 +23,143 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="413dp"
-        android:layout_height="597dp"
+        android:layout_height="550dp"
         android:layout_marginTop="12dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Opciones">
 
         <TextView
+            android:layout_marginLeft="40dp"
             android:id="@+id/zoomText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="16dp"
+            android:textStyle="bold"
             android:text="Zoom: 0"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <SeekBar
+            android:layout_marginLeft="40dp"
             android:id="@+id/zoomSeekBar"
-            android:layout_width="288dp"
-            android:layout_height="36dp"
+            android:layout_width="260dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
-            android:scaleX="1.05"
-            android:scaleY="1.25"
-            />
+            android:progressDrawable="@drawable/seek_bar"
+            android:thumb="@drawable/seek_bar_circle" />
 
         <TextView
-            android:id="@+id/exposureText"
+            android:layout_marginLeft="40dp"            android:id="@+id/exposureText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:textStyle="bold"
             android:text="Exposición: 0"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            />
+            android:textSize="16sp" />
 
         <SeekBar
+            android:layout_marginLeft="40dp"
             android:id="@+id/exposureSeekBar"
-            android:layout_width="288dp"
-            android:layout_height="36dp"
+            android:layout_width="260dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
-            android:scaleX="1.05"
-            android:scaleY="1.25"/>
+            android:progressDrawable="@drawable/seek_bar"
+            android:thumb="@drawable/seek_bar_circle" />
+
 
         <androidx.appcompat.widget.SwitchCompat
+            android:layout_marginLeft="40dp"
             android:id="@+id/grayscaleSwitch"
-            android:layout_width="198dp"
-            android:layout_height="69dp"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textStyle="bold"
             android:text="Escala de grises"
-            android:scaleX="1.5"
-            android:scaleY="1.5"/>
+            android:textSize="16sp"
+            android:thumb="@drawable/thumb"
+            app:track="@drawable/track"
+            android:layout_marginBottom="10dp"
+            />
 
         <androidx.appcompat.widget.SwitchCompat
+            android:layout_marginLeft="40dp"
             android:id="@+id/edgesSwitch"
-            android:layout_width="198dp"
-            android:layout_height="69dp"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textStyle="bold"
             android:text="Resalte de bordes"
-            android:scaleX="1.5"
-            android:scaleY="1.5"/>
+            android:textSize="16sp"
+            android:thumb="@drawable/thumb"
+            app:track="@drawable/track"
+            android:layout_marginBottom="10dp"
+            />
 
         <androidx.appcompat.widget.SwitchCompat
+            android:layout_marginLeft="40dp"
             android:id="@+id/CBSwitch"
-            android:layout_width="198dp"
-            android:layout_height="69dp"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textStyle="bold"
             android:text="Contraste y Brillo"
-            android:scaleX="1.5"
-            android:scaleY="1.5"/>
+            android:textSize="16sp"
+            android:thumb="@drawable/thumb"
+            app:track="@drawable/track"
+            />
 
         <TextView
+            android:layout_marginLeft="40dp"
             android:id="@+id/contrastText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:textStyle="bold"
             android:text="Contraste: 0"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <SeekBar
+            android:layout_marginLeft="40dp"
             android:id="@+id/contrastSeekbar"
-            android:layout_width="288dp"
-            android:layout_height="36dp"
+            android:layout_width="260dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
-            android:scaleX="1.05"
-            android:scaleY="1.25"/>
+            android:progressDrawable="@drawable/seek_bar"
+            android:thumb="@drawable/seek_bar_circle" />
 
         <TextView
+            android:layout_marginLeft="40dp"
             android:id="@+id/brightnessText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:textStyle="bold"
             android:text="Brillo: 0"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <SeekBar
+            android:layout_marginLeft="40dp"
             android:id="@+id/brightnessSeekbar"
-            android:layout_width="288dp"
-            android:layout_height="36dp"
+            android:layout_width="260dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
-            android:scaleX="1.05"
-            android:scaleY="1.25"/>
+            android:progressDrawable="@drawable/seek_bar"
+            android:thumb="@drawable/seek_bar_circle" />
 
 
     </LinearLayout>
