@@ -55,14 +55,16 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private LifecycleRegistry mLifecycleRegistry;
 
-
-
     private static boolean grayScaleMode= false;
     private static boolean edgesMode = false;
     private static boolean normalMode;
     private static float contrastValue = 1;
     private static int brightnessValue = 0;
     private static boolean CBMode=false;
+
+    private final float DEFAULT_CONTRAST = 0f;
+    private float prevContrast=DEFAULT_CONTRAST;
+    private Mat lut ;
 
     private static Camera camera;
     public CameraPresentation(Context context, Display display) {
@@ -166,7 +168,11 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
                     canvas.drawBitmap(toGrayscale(bitmap), 0f, 0f, null);
                 }
                 if(CBMode){
+                    if(prevContrast!=contrastValue){
+                        lut = contrastLookupTable(contrastValue);
+                    }
                     canvas.drawBitmap(contrastAndBrightness(bitmap),0f,0f,null);
+
                 }
                 mSurfaceView.getHolder().unlockCanvasAndPost(canvas);
             }
@@ -192,13 +198,13 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
         //Conversion to grayscale
         Imgproc.cvtColor(mat,mat,Imgproc.COLOR_BGR2GRAY);
         //Image blur
-        org.opencv.core.Size kernel = new org.opencv.core.Size(7.0,7.0);
+        org.opencv.core.Size kernel = new org.opencv.core.Size(3.0,3.0);
         Imgproc.GaussianBlur(mat,blur,kernel,0);
         //Use of adaptiveThreshold to enhance the edge detection
-        Imgproc.adaptiveThreshold(blur,edges,255,Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C,Imgproc.THRESH_BINARY,21,10);
+        //Imgproc.adaptiveThreshold(blur,edges,255,Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C,Imgproc.THRESH_BINARY_INV,3,2);
         //Edge detection using Canny's algorithm
-        double maxThreshold=255.0;
-        Imgproc.Canny(edges, edges, maxThreshold/3, maxThreshold);
+        double maxThreshold=100.0;
+        Imgproc.Canny(blur, edges, maxThreshold/2, maxThreshold);
         //Transformation back to bitmap
         Utils.matToBitmap(edges, bitmap);
         return bitmap;
@@ -207,8 +213,9 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
         Mat src = new Mat();
         Mat dst = new Mat();
         Utils.bitmapToMat(bitmap,src);
-        src.convertTo(src,-1,1.0,brightnessValue);
-        Core.LUT(src,contrastLookupTable(contrastValue),dst);
+
+        Core.LUT(src,lut,dst);
+        dst.convertTo(dst,-1,1.0,brightnessValue);
         Utils.matToBitmap(dst,bitmap);
         return bitmap;
     }
@@ -222,7 +229,6 @@ public class CameraPresentation extends Presentation implements LifecycleOwner, 
         lut.put(0,0,lutData);
         return lut;
     }
-    //Cogido de https://github.com/opencv/opencv/blob/3.4/samples/java/tutorial_code/ImgProc/changing_contrast_brightness_image/ChangingContrastBrightnessImageDemo.java
     private byte saturate(float val) {
         int iVal = (int) Math.round(val);
         if (iVal>255) iVal=255;

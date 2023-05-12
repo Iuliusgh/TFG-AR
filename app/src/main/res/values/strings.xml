@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">tfg</string>
-
+    <string name="opciones">Opciones</string>
+    <string name="zoom">Zoom: 0</string>
+    <string name="exposicion">Exposición: 0</string>
+    <string name="grayscale">Escala de grises</string>
+    <string name="border">Resalte de bordes</string>
+    <string name="cyb">Contraste y Brillo</string>
+    <string name="contraste">Contraste: 1.0</string>
+    <string name="brillo">Brillo: 0</string>
 </resources>

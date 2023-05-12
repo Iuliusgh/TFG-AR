@@ -9,159 +9,184 @@
         android:id="@+id/Opciones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
         android:gravity="center"
-        android:text="Opciones"
-        android:textStyle="bold"
+        android:text="@string/opciones"
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/constraint"/>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="413dp"
-        android:layout_height="550dp"
-        android:layout_marginTop="12dp"
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/Opciones"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Opciones">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:layout_marginLeft="40dp"
             android:id="@+id/zoomText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="16dp"
-            android:textStyle="bold"
-            android:text="Zoom: 0"
+            android:text="@string/zoom"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/zoomSeekBar"
+       />
 
         <SeekBar
-            android:layout_marginLeft="40dp"
             android:id="@+id/zoomSeekBar"
             android:layout_width="260dp"
             android:layout_height="30dp"
-            android:layout_gravity="center"
             android:progressDrawable="@drawable/seek_bar"
-            android:thumb="@drawable/seek_bar_circle" />
+            android:thumb="@drawable/seek_bar_circle"
+            android:layout_marginBottom="15dp"
+
+            app:layout_constraintTop_toBottomOf="@id/zoomText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/exposureText"
+            />
 
         <TextView
-            android:layout_marginLeft="40dp"            android:id="@+id/exposureText"
+            android:id="@+id/exposureText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:textStyle="bold"
-            android:text="Exposición: 0"
+            android:text="@string/exposicion"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/zoomSeekBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/exposureSeekBar"
+            />
 
         <SeekBar
-            android:layout_marginLeft="40dp"
             android:id="@+id/exposureSeekBar"
             android:layout_width="260dp"
             android:layout_height="30dp"
-            android:layout_gravity="center"
+            android:progress="50"
             android:progressDrawable="@drawable/seek_bar"
-            android:thumb="@drawable/seek_bar_circle" />
+            android:thumb="@drawable/seek_bar_circle"
+            android:layout_marginBottom="15dp"
 
+            app:layout_constraintTop_toBottomOf="@id/exposureText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/grayscaleSwitch"
+/>
 
         <androidx.appcompat.widget.SwitchCompat
-            android:layout_marginLeft="40dp"
             android:id="@+id/grayscaleSwitch"
             android:layout_width="275dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:text="Escala de grises"
+            android:text="@string/grayscale"
             android:textSize="16sp"
+            android:textStyle="bold"
             android:thumb="@drawable/thumb"
             app:track="@drawable/track"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintTop_toBottomOf="@id/exposureSeekBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/edgesSwitch"
             />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:layout_marginLeft="40dp"
             android:id="@+id/edgesSwitch"
             android:layout_width="275dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:text="Resalte de bordes"
+            android:text="@string/border"
             android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"
             android:thumb="@drawable/thumb"
             app:track="@drawable/track"
-            android:layout_marginBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@id/grayscaleSwitch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/CBSwitch"
             />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:layout_marginLeft="40dp"
             android:id="@+id/CBSwitch"
             android:layout_width="275dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:text="Contraste y Brillo"
+            android:text="@string/cyb"
             android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"
             android:thumb="@drawable/thumb"
             app:track="@drawable/track"
+            app:layout_constraintTop_toBottomOf="@id/edgesSwitch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/contrastText"
             />
 
         <TextView
-            android:layout_marginLeft="40dp"
             android:id="@+id/contrastText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:text="@string/contraste"
+            android:textColor="@color/text_state_selector"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:text="Contraste: 0"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            app:layout_constraintTop_toBottomOf="@id/CBSwitch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/contrastSeekbar"
+             />
 
         <SeekBar
-            android:layout_marginLeft="40dp"
             android:id="@+id/contrastSeekbar"
             android:layout_width="260dp"
             android:layout_height="30dp"
-            android:layout_gravity="center"
             android:progressDrawable="@drawable/seek_bar"
-            android:thumb="@drawable/seek_bar_circle" />
+            android:thumb="@drawable/seek_bar_circle"
+            android:layout_marginBottom="15dp"
+            android:progress="100"
+            android:max="300"
+            app:layout_constraintTop_toBottomOf="@id/contrastText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/brightnessText"
+             />
 
         <TextView
-            android:layout_marginLeft="40dp"
             android:id="@+id/brightnessText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:text="@string/brillo"
+            android:textColor="@color/text_state_selector"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:text="Brillo: 0"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            app:layout_constraintTop_toBottomOf="@id/contrastSeekbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/brightnessSeekbar"
+             />
 
         <SeekBar
-            android:layout_marginLeft="40dp"
             android:id="@+id/brightnessSeekbar"
             android:layout_width="260dp"
             android:layout_height="30dp"
-            android:layout_gravity="center"
             android:progressDrawable="@drawable/seek_bar"
-            android:thumb="@drawable/seek_bar_circle" />
-
-
-    </LinearLayout>
+            android:thumb="@drawable/seek_bar_circle"
+            app:layout_constraintTop_toBottomOf="@id/brightnessText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

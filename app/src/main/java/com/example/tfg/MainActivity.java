@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 TextView textView = findViewById(R.id.contrastText);
-                textView.setText("Contraste: " + contrastSeekbar.getProgress());
+                textView.setText("Contraste: " + contrastSeekbar.getProgress()/100f);
             }
 
             @Override
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 CameraPresentation.setBrightness(brightnessSeekbar.getProgress());
-                Toast.makeText(MainActivity.this, "New brightness: " + brightnessSeekbar.getProgress(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "New brightness: " + brightnessSeekbar.getProgress()/100f, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -156,13 +156,13 @@ public class MainActivity extends AppCompatActivity{
             seekBar.setProgress(exposureState.getExposureCompensationIndex());
         }
         if (seekBar==contrastSeekbar){
-            seekBar.setEnabled(false);
+            seekBar.setEnabled(true);
             seekBar.setMax(300);
             seekBar.setMin(0);
             seekBar.setProgress(100);
         }
         if (seekBar==brightnessSeekbar){
-            seekBar.setEnabled(false);
+            seekBar.setEnabled(true);
             seekBar.setMax(255);
             seekBar.setMin(0);
             seekBar.setProgress(0);
